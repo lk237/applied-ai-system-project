@@ -1,0 +1,39 @@
+flowchart TD
+
+    User["User"]
+    Preferences["User Music Preferences"]
+    SongData["Song Dataset<br/>songs.csv"]
+
+    subgraph Input["Input Layer"]
+        Preferences
+        SongData
+    end
+
+    subgraph Processing["Data Processing"]
+        Loader["Load Song Data"]
+        Validation["Validate and Prepare Features"]
+    end
+
+    subgraph Recommendation["Recommendation Engine"]
+        Profile["Build User Preference Profile"]
+        Scoring["Calculate Song Match Scores"]
+        Ranking["Rank Songs by Score"]
+    end
+
+    subgraph Output["Output Layer"]
+        Recommendations["Top Recommended Songs"]
+    end
+
+    User --> Preferences
+
+    SongData --> Loader
+    Loader --> Validation
+
+    Preferences --> Profile
+    Validation --> Scoring
+    Profile --> Scoring
+
+    Scoring --> Ranking
+    Ranking --> Recommendations
+
+    Recommendations --> User
