@@ -1,3 +1,33 @@
-pandas
-pytest
-streamlit
+# Crate Digger - dependencies
+#
+# Verified on Python 3.14.3 / Windows 11 with the exact versions pinned below.
+# Lower bounds rather than hard pins, so a newer patch release still installs,
+# with the tested version noted beside each.
+#
+# There is no API key anywhere in this project. Every model runs locally, so
+# `pip install -r requirements.txt` is the only credential-free setup step.
+#
+#   pip install -r requirements.txt
+#
+# First run downloads ~1.2 GB of model weights to the HuggingFace cache
+# (~/.cache/huggingface). Subsequent runs are offline.
+
+# --- retrieval -------------------------------------------------------------
+# Pulls in torch and transformers as dependencies, which is why adding a local
+# generative model below costs weights rather than new libraries.
+sentence-transformers>=5.6.1        # tested 5.6.1
+
+# --- generation ------------------------------------------------------------
+transformers>=5.14.1                # tested 5.14.1
+torch>=2.13.0                       # tested 2.13.0 (cp314 wheels available)
+
+# --- data ------------------------------------------------------------------
+numpy>=2.5.1                        # tested 2.5.1 - vector maths for retrieval
+pandas>=3.0.5                       # tested 3.0.5 - catalog inspection
+
+# --- interface -------------------------------------------------------------
+streamlit>=1.61.0                   # tested 1.61.0 - `streamlit run app.py`
+
+# --- testing ---------------------------------------------------------------
+# The suite is fully offline and needs none of the models above.
+pytest>=9.1.1                       # tested 9.1.1

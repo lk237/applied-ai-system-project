@@ -78,6 +78,13 @@ def load_eval_summary(path: Optional[Path] = None) -> EvalSummary:
     except (OSError, json.JSONDecodeError):
         return EvalSummary(exists=False, best_strategy=DEFAULT_STRATEGY)
 
+    # A --offline harness run uses stub models, so its scores describe the
+    # harness rather than the system. Treating those numbers as calibration
+    # would let the app advertise measured accuracy it has never had, so a stub
+    # run is ignored exactly as if no evaluation existed.
+    if data.get("offline_stub_run"):
+        return EvalSummary(exists=False, best_strategy=DEFAULT_STRATEGY)
+
     summary = data.get("summary", {})
     winner = data.get("best_strategy", DEFAULT_STRATEGY)
 

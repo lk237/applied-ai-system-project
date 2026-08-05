@@ -249,11 +249,13 @@ class CrateDigger:
             if not report.grounded:
                 text = strip_unsupported(reason, report)
                 notes.extend(f"{hit.song.title}: {f}" for f in report.failures)
-                if not text:
-                    # Nothing survived: fall back to catalog facts, which are
-                    # true by construction. Better a plain sentence than a
-                    # fluent unsupported one.
-                    text = self._fallback_reason(hit)
+
+            # Fall back to catalog facts whenever there is no usable text -
+            # whether the guardrail stripped everything, or generation failed
+            # and returned nothing at all. An empty string is vacuously
+            # "grounded", so this must be checked separately from the report.
+            if not text.strip():
+                text = self._fallback_reason(hit)
             picks.append(
                 Pick(
                     song=hit.song,

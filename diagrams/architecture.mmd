@@ -51,7 +51,7 @@ flowchart TD
     subgraph GENERATE["4 - GROUNDED GENERATOR"]
         direction TB
         PROMPT["Assemble prompt<br/><i>retrieved rows are the ONLY facts supplied</i>"]
-        LLM["Generative model<br/><b>flan-t5-base</b><br/><i>greedy decoding = reproducible</i>"]
+        LLM["Generative model<br/><b>Qwen2.5-0.5B-Instruct</b><br/><i>greedy decoding = reproducible</i>"]
         PARSE["Parse into structured<br/>recommendation objects"]
         PROMPT --> LLM --> PARSE
     end
@@ -97,7 +97,7 @@ flowchart TD
         M1["<b>Groundedness</b><br/>is every song real?<br/><i>deterministic check</i>"]
         M2["<b>Consistency</b><br/>paraphrase robustness<br/><i>Jaccard overlap of ids</i>"]
         M3["<b>Relevance</b><br/>golden property assertions<br/><i>energy, genre, mood bounds</i>"]
-        M4["<b>Cost / latency</b><br/>wall time, token counts"]
+        M4["<b>Runtime</b><br/>wall-clock latency"]
 
         SCORE[("evals/results.json<br/>evals/scorecard.md")]
 

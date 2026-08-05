@@ -10,6 +10,27 @@ venv/
 
 # OS files
 .DS_Store
+Thumbs.db
 
 # Pytest cache
 .pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# --- Crate Digger artifacts -------------------------------------------------
+
+# Cached embedding vectors. Rebuilt automatically on first run, and invalidated
+# by a fingerprint check whenever the catalog or embedding model changes, so
+# committing it would only risk shipping a stale index.
+data/index.npz
+
+# Run logs. Machine-local and append-only; a sample is quoted in the README
+# instead of committing the raw stream.
+logs/
+
+# NOT ignored, and deliberately so:
+#   evals/results.json   read at runtime to pick the prompt strategy and
+#                        calibrate confidence - the system behaves differently
+#                        without it, so it is part of the deliverable
+#   evals/scorecard.md   the human-readable reliability report quoted in README

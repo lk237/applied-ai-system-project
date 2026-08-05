@@ -1,0 +1,794 @@
+{
+  "generated_at": "2026-08-05T03:54:07+00:00",
+  "runtime_seconds": 947.1,
+  "offline_stub_run": false,
+  "best_strategy": "terse",
+  "config": {
+    "embed_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "gen_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "top_k": 5,
+    "similarity_floor": 0.34,
+    "seed": 20260804,
+    "max_new_tokens": 48,
+    "k": 3,
+    "floor": 0.34
+  },
+  "environment": {
+    "python": "3.14.3",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "summary": {
+    "cases": 26,
+    "groundedness": 0.8462,
+    "consistency": 0.3641,
+    "relevance": 0.5385,
+    "refusal_accuracy": 0.5,
+    "mean_latency_ms": 2004.4,
+    "p95_latency_ms": 68.3,
+    "failed_case_ids": [
+      "study-focus",
+      "gym-hard",
+      "road-trip",
+      "sleep",
+      "dancefloor",
+      "near-genre-soul",
+      "heavy-guitars",
+      "brass-horns",
+      "anxious",
+      "jamaican",
+      "refuse-kpop",
+      "refuse-bagpipes"
+    ]
+  },
+  "strategies": [
+    {
+      "strategy": "terse",
+      "cases": 22,
+      "total_picks": 65,
+      "grounded_picks": 55,
+      "groundedness": 0.8461538461538461,
+      "mean_latency_ms": 18391.5,
+      "guardrail_failures": [
+        "study-focus: Coffee Shop Stories: named 'quiet instrumental', which is not in the catalog at all",
+        "gym-hard: Spacewalk Thoughts: named 'aggressive, high-energy music for a workout,', which is not in the catalog at all",
+        "sleep: Slow Sunday Loop: named 'Sunday Loop', which is not in the catalog at all",
+        "banjo-fiddle: Pocket Full of Nickels: named 'Pocket Full of Nickles', which is not in the catalog at all",
+        "banjo-fiddle: Green Isle Reel: named 'playful', which is not in the catalog at all",
+        "heavy-guitars: Static Bloom: named 'really heavy, distorted guitars and screamed vocals.', which is not in the catalog at all",
+        "heavy-guitars: Static Bloom: named 'screaming', which is not in the catalog at all",
+        "heavy-guitars: Static Bloom: named 'whispering,', which is not in the catalog at all",
+        "heavy-guitars: Kerosene Hymn: named 'Kerosene Hmng', which is not in the catalog at all",
+        "romantic: Moonlit Sonata Drift: named 'The Moonlit Sonata', which is not in the catalog at all",
+        "very-fast: Hydroplane: named 'extremely quick, frantic music', which is not in the catalog at all",
+        "very-slow: Ceiling Fan Slow: named 'extremely fast', which is not in the catalog at all"
+      ],
+      "examples": [
+        {
+          "case_id": "study-focus",
+          "query": "quiet instrumental music for studying without distraction",
+          "summary": "A group of classical and jazz tracks are selected to create a quiet instrumental background for studying without distractions.",
+          "first_reason": "The quiet instrumental music by Clara Vecht perfectly complements the listener's desire for a tranquil study environment, as it features a somber yet soothing atmosphere, suitable for reducing distractions while focusing on their studies.",
+          "first_title": "Moonlit Sonata Drift"
+        },
+        {
+          "case_id": "gym-hard",
+          "query": "aggressive high energy music for a heavy workout",
+          "summary": "The selected songs form an aggressive high-energy duo, each contributing to a dynamic and energetic workout environment.",
+          "first_reason": "Gym Hero's aggressive high-energy pop, featuring a hard four on the floor kick and shouted lyrics, perfectly matches their demanding workout needs.",
+          "first_title": "Gym Hero"
+        },
+        {
+          "case_id": "road-trip",
+          "query": "something upbeat for a long road trip with the windows down",
+          "summary": "The selected songs create an uplifting and reflective atmosphere suitable for a long car journey.",
+          "first_reason": "Sable Coast's downtempo, moody, and dark sound perfectly complements the listener's desire for an upbeat, relaxing experience on a long roadtrip with rain-soaked windows.",
+          "first_title": "Sable Coast"
+        }
+      ]
+    },
+    {
+      "strategy": "explanatory",
+      "cases": 22,
+      "total_picks": 65,
+      "grounded_picks": 53,
+      "groundedness": 0.8153846153846154,
+      "mean_latency_ms": 22284.7,
+      "guardrail_failures": [
+        "study-focus: Moonlit Sonata Drift: named 'The Moonlit Sonata', which is not in the catalog at all",
+        "late-night-drive: Night Drive Loop: named 'moody synths', which is not in the catalog at all",
+        "late-night-drive: Sunrise City: named 'moody synths', which is not in the catalog at all",
+        "late-night-drive: Amber Interchange: named 'moody synths', which is not in the catalog at all",
+        "dancefloor: Night Drive Loop: named 'music that fills a dancefloor,', which is not in the catalog at all",
+        "heavy-guitars: Slow Collapse: named 'really heavy', which is not in the catalog at all",
+        "heartbreak: Salt and Sorrow: named 'sad songs', which is not in the catalog at all",
+        "heartbreak: Delta Blue Morning: named 'sad songs', which is not in the catalog at all",
+        "romantic: Moonlit Sonata Drift: named 'The Moonlit Sonata', which is not in the catalog at all",
+        "very-slow: Moonlit Sonata Drift: named 'The Moonlit Sonata', which is not in the catalog at all",
+        "latin: Dos Copas: named 'latin dance', which is not in the catalog at all",
+        "latin: Dub Pressure: named 'latin dance', which is not in the catalog at all"
+      ],
+      "examples": [
+        {
+          "case_id": "study-focus",
+          "query": "quiet instrumental music for studying without distraction",
+          "summary": "A group of classical and jazz tracks are selected to create a quiet instrumental background for studying without distractions.",
+          "first_reason": "classical track with a melancholic feel, energy 0.24 at 66 BPM.",
+          "first_title": "Moonlit Sonata Drift"
+        },
+        {
+          "case_id": "gym-hard",
+          "query": "aggressive high energy music for a heavy workout",
+          "summary": "The selected songs form an aggressive high-energy duo, each contributing to a dynamic and energetic workout environment.",
+          "first_reason": "Gym Hero by Maxpulse has an aggressive high energy quality that matches the listener's request for an intense workout environment.",
+          "first_title": "Gym Hero"
+        },
+        {
+          "case_id": "road-trip",
+          "query": "something upbeat for a long road trip with the windows down",
+          "summary": "The selected songs create an uplifting and reflective atmosphere suitable for a long car journey.",
+          "first_reason": "The song's downtempo beat and moody mood perfectly complement the listener's desire for an upbeat, relaxing experience on a long roadtrip.",
+          "first_title": "Sable Coast"
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "study-focus",
+      "query": "quiet instrumental music for studying without distraction",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick genre 'classical' is not one of ['lofi', 'ambient', 'drone', 'chillhop', 'neoclassical', 'piano']"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.5,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4291,
+      "elapsed_ms": 51283.5,
+      "titles": [
+        "Moonlit Sonata Drift",
+        "Focus Flow",
+        "Coffee Shop Stories"
+      ],
+      "paraphrase_titles": [
+        "Focus Flow",
+        "Moonlit Sonata Drift",
+        "Spacewalk Thoughts"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "gym-hard",
+      "query": "aggressive high energy music for a heavy workout",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "energy below 0.70 for: Spacewalk Thoughts (0.28)"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.3333,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.6582,
+      "elapsed_ms": 28.6,
+      "titles": [
+        "Gym Hero",
+        "Spacewalk Thoughts",
+        "Concrete Kingdom"
+      ],
+      "paraphrase_titles": [
+        "Gym Hero"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "road-trip",
+      "query": "something upbeat for a long road trip with the windows down",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick energy 0.41 < required 0.55"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4921,
+      "elapsed_ms": 28.3,
+      "titles": [
+        "Sable Coast",
+        "Dust Road Home",
+        "Signal Decay"
+      ],
+      "paraphrase_titles": [
+        "Night Drive Loop",
+        "Dust Road Home",
+        "Amber Interchange"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "late-night-drive",
+      "query": "moody synth music for driving alone at night in the rain",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 1.0,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.6915,
+      "elapsed_ms": 32.0,
+      "titles": [
+        "Night Drive Loop",
+        "Sunrise City",
+        "Amber Interchange"
+      ],
+      "paraphrase_titles": [
+        "Night Drive Loop",
+        "Amber Interchange",
+        "Sunrise City"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "sleep",
+      "query": "calm music with no drums to fall asleep to",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick genre 'synthwave' is not one of ['ambient', 'drone', 'neoclassical', 'piano']",
+        "energy above 0.40 for: Night Drive Loop (0.75)"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5327,
+      "elapsed_ms": 34.3,
+      "titles": [
+        "Night Drive Loop",
+        "Slow Sunday Loop",
+        "Spacewalk Thoughts"
+      ],
+      "paraphrase_titles": [
+        "Tidal Lull",
+        "Blue Hour Bossa",
+        "Spacewalk Thoughts"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "dinner-party",
+      "query": "relaxed jazzy background music for a dinner party",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.0,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5146,
+      "elapsed_ms": 30.2,
+      "titles": [
+        "Coffee Shop Stories",
+        "Late Set",
+        "Organ Grinder Blues"
+      ],
+      "paraphrase_titles": [
+        "Bedroom Ceiling",
+        "Aftertaste",
+        "Kettle on the Stove"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "dancefloor",
+      "query": "music that will fill a dancefloor at midnight",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick genre 'lofi' is not one of ['edm', 'house', 'disco', 'funk', 'techno', 'trance']",
+        "top pick energy 0.42 < required 0.75"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.0,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5711,
+      "elapsed_ms": 28.7,
+      "titles": [
+        "Midnight Coding",
+        "Night Drive Loop",
+        "Marble Steps"
+      ],
+      "paraphrase_titles": [
+        "Gym Hero",
+        "Sequin Boulevard",
+        "Chalk Lines"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "near-genre-pop",
+      "query": "catchy pop music with guitars and big harmonies",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5699,
+      "elapsed_ms": 27.1,
+      "titles": [
+        "Static Bloom",
+        "Panorama Wide",
+        "Sugar Static"
+      ],
+      "paraphrase_titles": [
+        "Static Bloom",
+        "Tidal Lull",
+        "Testify"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "near-genre-soul",
+      "query": "smooth soulful singing over warm keys",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick genre 'ambient' is not one of ['soul', 'r&b']"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.0,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4628,
+      "elapsed_ms": 30.0,
+      "titles": [
+        "Tidal Lull",
+        "Testify",
+        "Cold Open"
+      ],
+      "paraphrase_titles": [
+        "Velvet Hours",
+        "Organ Grinder Blues",
+        "Prelude in Grey"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "near-mood-mellow",
+      "query": "mellow music for a slow lazy morning",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5767,
+      "elapsed_ms": 25.5,
+      "titles": [
+        "Coffee Shop Stories",
+        "Tidal Lull",
+        "Slow Sunday Loop"
+      ],
+      "paraphrase_titles": [
+        "Delta Blue Morning",
+        "Spacewalk Thoughts",
+        "Tidal Lull"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "solo-piano",
+      "query": "just a piano playing on its own",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.5,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4644,
+      "elapsed_ms": 47.4,
+      "titles": [
+        "Prelude in Grey",
+        "Marble Steps",
+        "Moonlit Sonata Drift"
+      ],
+      "paraphrase_titles": [
+        "Prelude in Grey",
+        "Moonlit Sonata Drift",
+        "Testify"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "banjo-fiddle",
+      "query": "fast banjo and fiddle playing together",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.3333,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4587,
+      "elapsed_ms": 25.2,
+      "titles": [
+        "Pocket Full of Nickels",
+        "Green Isle Reel"
+      ],
+      "paraphrase_titles": [
+        "Pocket Full of Nickels",
+        "Copper Wire"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "heavy-guitars",
+      "query": "really heavy distorted guitars and screaming",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick genre 'dream pop' is not one of ['metal', 'punk', 'rock']",
+        "top pick energy 0.52 < required 0.65"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.5,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.3818,
+      "elapsed_ms": 24.0,
+      "titles": [
+        "Static Bloom",
+        "Slow Collapse",
+        "Kerosene Hymn"
+      ],
+      "paraphrase_titles": [
+        "Slow Collapse",
+        "Iron Verdict",
+        "Kerosene Hymn"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "brass-horns",
+      "query": "music with a big brass horn section",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick genre 'drum and bass' is not one of ['salsa', 'funk', 'afrobeat', 'gospel', 'disco', 'reggae']"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4184,
+      "elapsed_ms": 24.6,
+      "titles": [
+        "Copper Wire",
+        "Testify",
+        "Organ Grinder Blues"
+      ],
+      "paraphrase_titles": [
+        "Testify",
+        "Kettle on the Stove",
+        "Sunday Service House"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "heartbreak",
+      "query": "sad songs about heartbreak",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.0,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5217,
+      "elapsed_ms": 68.3,
+      "titles": [
+        "Salt and Sorrow",
+        "Delta Blue Morning",
+        "Slow Collapse"
+      ],
+      "paraphrase_titles": [
+        "Dos Copas",
+        "Aftertaste",
+        "Last Call Disco"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "triumphant",
+      "query": "uplifting music that feels like a victory",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5852,
+      "elapsed_ms": 35.3,
+      "titles": [
+        "Testify",
+        "Salt and Sorrow",
+        "Hollow Bridges"
+      ],
+      "paraphrase_titles": [
+        "Testify",
+        "Two Weeks Notice",
+        "Nine Below"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "anxious",
+      "query": "tense uneasy music that feels claustrophobic",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick mood 'bittersweet' is not one of ['anxious', 'restless', 'intense', 'moody']"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.5,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5016,
+      "elapsed_ms": 31.2,
+      "titles": [
+        "Aftertaste",
+        "Hydroplane",
+        "Fret and Fever"
+      ],
+      "paraphrase_titles": [
+        "Night Drive Loop",
+        "Fret and Fever",
+        "Hydroplane"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "romantic",
+      "query": "romantic music for a candlelit evening",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.6554,
+      "elapsed_ms": 25.3,
+      "titles": [
+        "Velvet Hours",
+        "Tidal Lull",
+        "Moonlit Sonata Drift"
+      ],
+      "paraphrase_titles": [
+        "Velvet Hours",
+        "Delta Blue Morning",
+        "Dos Copas"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "very-fast",
+      "query": "extremely fast frantic music",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5123,
+      "elapsed_ms": 37.0,
+      "titles": [
+        "Hydroplane",
+        "Signal Decay",
+        "Night Drive Loop"
+      ],
+      "paraphrase_titles": [
+        "Copper Wire",
+        "Chalk Lines",
+        "Hydroplane"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "very-slow",
+      "query": "extremely slow music that barely moves",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.0,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5,
+      "elapsed_ms": 40.5,
+      "titles": [
+        "Moonlit Sonata Drift",
+        "Ceiling Fan Slow",
+        "Coffee Shop Stories"
+      ],
+      "paraphrase_titles": [
+        "Panorama Wide",
+        "Signal Decay",
+        "Tidal Lull"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "latin",
+      "query": "latin dance music with percussion",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 1.0,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5631,
+      "elapsed_ms": 31.5,
+      "titles": [
+        "Dos Copas",
+        "Fever Sunday",
+        "Dub Pressure"
+      ],
+      "paraphrase_titles": [
+        "Dos Copas",
+        "Fever Sunday",
+        "Dub Pressure"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "jamaican",
+      "query": "laid back jamaican music with offbeat guitar",
+      "status": "ok",
+      "expected_refusal": false,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "top pick genre 'afrobeat' is not one of ['reggae', 'dub']"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.5,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.5649,
+      "elapsed_ms": 37.0,
+      "titles": [
+        "Lagos Morning",
+        "Island Time",
+        "Organ Grinder Blues"
+      ],
+      "paraphrase_titles": [
+        "Dub Pressure",
+        "Island Time",
+        "Lagos Morning"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "refuse-kpop",
+      "query": "korean pop idol group with rap verses and a dance breakdown",
+      "status": "ok",
+      "expected_refusal": true,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "expected a refusal but got ok (best similarity 0.441; returned Lagos Morning, Concrete Kingdom, Gym Hero)"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.5,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4412,
+      "elapsed_ms": 39.1,
+      "titles": [
+        "Lagos Morning",
+        "Concrete Kingdom",
+        "Gym Hero"
+      ],
+      "paraphrase_titles": [
+        "Concrete Kingdom",
+        "Chalk Lines",
+        "Gym Hero"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "refuse-bagpipes",
+      "query": "norwegian black metal recorded with bagpipes and throat singing",
+      "status": "ok",
+      "expected_refusal": true,
+      "relevance_pass": false,
+      "relevance_failures": [
+        "expected a refusal but got ok (best similarity 0.488; returned Kerosene Hymn, Hydroplane, Blacktop Prayer)"
+      ],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 0.2,
+      "paraphrase_status": "ok",
+      "best_similarity": 0.4881,
+      "elapsed_ms": 35.6,
+      "titles": [
+        "Kerosene Hymn",
+        "Hydroplane",
+        "Blacktop Prayer"
+      ],
+      "paraphrase_titles": [
+        "Kerosene Hymn",
+        "Green Isle Reel",
+        "Copper Wire"
+      ],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "refuse-nonsense",
+      "query": "qqqq zzzz vvvv xxxx wwww",
+      "status": "refused",
+      "expected_refusal": true,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 1.0,
+      "paraphrase_status": "refused",
+      "best_similarity": 0.1865,
+      "elapsed_ms": 34.6,
+      "titles": [],
+      "paraphrase_titles": [],
+      "guardrail_notes": []
+    },
+    {
+      "case_id": "refuse-non-music",
+      "query": "a spoken word podcast about tax law compliance",
+      "status": "refused",
+      "expected_refusal": true,
+      "relevance_pass": true,
+      "relevance_failures": [],
+      "grounded_picks": 0,
+      "total_picks": 0,
+      "consistency": 1.0,
+      "paraphrase_status": "refused",
+      "best_similarity": 0.2888,
+      "elapsed_ms": 28.6,
+      "titles": [],
+      "paraphrase_titles": [],
+      "guardrail_notes": []
+    }
+  ]
+}

@@ -1,125 +1,54 @@
-# 🎧 Model Card: Music Recommender Simulation
+# Model Card: Crate Digger
 
-## 1. Model Name
+## System summary
 
-**VibeFinder 1.0**
+Crate Digger is a classroom and portfolio demonstration of retrieval-augmented music recommendation. It retrieves from a synthetic 72-song catalog with `all-MiniLM-L6-v2`, asks `Qwen2.5-0.5B-Instruct` to explain the retrieved results, verifies generated song names, and falls back to deterministic explanations when verification fails. It runs locally and requires no API key.
 
-It finds songs that match the "vibe" you ask for.
+The system is intended for learning, prototyping, and low-stakes music discovery. It is not a production recommender, a source of factual information about real artists, or a substitute for licensed music metadata.
 
----
+## Data and models
 
-## 2. Goal / Task
+The catalog contains 72 fictional songs across 53 genre labels and 25 mood labels. Each row includes title, artist, genre, mood, energy, tempo, valence, danceability, acousticness, and a short retrieval description. The hand-authored descriptions make the experiment reproducible but may encode the author’s assumptions about which sounds, moods, and activities belong together.
 
-VibeFinder suggests songs you might like.
+- Retriever: `sentence-transformers/all-MiniLM-L6-v2`
+- Generator: `Qwen/Qwen2.5-0.5B-Instruct`
+- Decoding: greedy, fixed seed, four-token no-repeat n-gram
+- Evaluator: deterministic code plus 26 human-authored golden cases; no model grades another model
 
-You tell it three things: a genre, a mood, and how much energy you want.
+## Evaluation results
 
-It looks at every song in the catalog and picks the five that fit you best.
+The real-model evaluation was run on Windows 11 with Python 3.14.3. The selected `terse` prompt produced 55 grounded explanations across 65 recommendations (**84.6%**); every detected unsupported explanation was replaced before display. Relevance passed 14 of 26 cases (**53.8%**), paraphrase consistency averaged **0.36 Jaccard**, and refusal accuracy was 4 of 8 cases (**50%**). The full parseable evidence is in `evals/results.json`; the readable report is `evals/scorecard.md`.
 
-It is built for classroom exploration, not for real users yet.
+These metrics measure different things. Groundedness does not prove relevance, and the post-generation fallback means displayed output is safer than raw model output. A “high” confidence label describes retrieval similarity, not an 85% probability that the listener will enjoy a song.
 
-The goal is to be easy to explain. You can always see *why* a song was picked.
+## 1. How I collaborated with AI
 
----
+I used an AI coding agent as a pair programmer for architecture, implementation, testing, and documentation. I supplied the assignment requirements, selected the combined RAG and reliability direction, approved a local no-key design, and reviewed consequential choices. The agent inspected the existing Module 3 project, preserved the original scorer and adversarial evaluation, built the new pipeline, ran models and tests, and surfaced unexpected failures while I controlled scope and approved continued work.
 
-## 3. Data Used
+I did not treat generated claims as evidence. We ran the actual code, captured real outputs, measured similarity distributions, and kept failures in the final scorecard. When the first headline incorrectly reported 100% groundedness from a retrieval-only phase, review of the result schema exposed the error; the report was corrected to the selected strategy’s measured 84.6%, and a regression test was added.
 
-The catalog has **20 songs**.
+## 2. One helpful AI suggestion and one flawed AI suggestion
 
-Each song has these features:
+**Helpful suggestion:** the agent proposed making evaluation load-bearing by reading `evals/results.json` at runtime. That idea became a central design feature: the application selects the better measured prompt strategy and adds evaluation context to its confidence note. This is stronger than a standalone test script because evaluation meaningfully changes the application’s behavior.
 
-- Title and artist (just labels)
-- Genre (like pop, rock, lofi)
-- Mood (like happy, chill, intense)
-- Energy, a number from 0.0 (calm) to 1.0 (hype)
-- A few extra numbers (tempo, valence, danceability, acousticness) that we do **not** use yet
+**Flawed suggestion:** the agent initially recommended `flan-t5-base` as a CPU-friendly grounded generator. Real trials showed that it echoed prompts, invented artist facts, and entered repetition loops. The design was changed to `Qwen2.5-0.5B-Instruct`, which followed instructions better but remained imperfect. The agent also initially claimed PyTorch lacked Python 3.14 wheels; a package-index dry run disproved that assumption. These mistakes reinforced the need to test environment and model claims instead of accepting plausible advice.
 
-Limits of the data:
+## 3. Potential misuse and responsible use
 
-- It is tiny. Only 20 songs.
-- There are 17 different genres, so most genres have just one song.
-- The songs lean high-energy. The average energy is about 0.61.
-- Many real tastes and genres are simply missing.
+Although this catalog is fictional, the same architecture could be misused in a real service to create opaque filter bubbles, promote paid placements without disclosure, infer sensitive moods from listening requests, or present generated artist descriptions as facts. A system operator could also manipulate descriptions so sponsored tracks appear semantically relevant while claiming that retrieval is neutral.
 
----
+Responsible deployment would require licensed and representative data, clear sponsorship labels, privacy controls, user-visible reasons, opt-out and correction mechanisms, diversity constraints, monitoring by genre and user segment, and a documented appeals process for artists. Query logs may reveal health, relationship, religious, or political context; production logs should minimize content, redact identifiers, enforce retention limits, and restrict access.
 
-## 4. Algorithm Summary
+## 4. Limitations and what surprised me during testing
 
-Every song starts with a score of 0. We add points for each thing it gets right.
+- The 72-song synthetic catalog is too small and subjective to represent music culture fairly.
+- Dense retrieval blends compound requests. “Norwegian black metal with bagpipes” matches existing metal strongly enough to pass the threshold even though bagpipes are absent.
+- No single similarity threshold separated all answerable and refusable golden queries: answerable scores ranged from 0.382 to 0.692, while refusal cases ranged from 0.187 to 0.488.
+- Paraphrase consistency was only 0.36. For example, changing the wording of a dinner-party or dance-floor request could replace all three results.
+- Relevance was 54%; a semantically similar result may still violate an important constraint such as energy, instrumentation, or genre.
+- Raw generated prose was grounded only 85% of the time. The model shortened or altered titles and artist names, so deterministic fallback is essential.
+- Citation checking focuses on song names. Artist-name corruption and subtler factual changes may escape the current checker.
+- CPU generation is slow: the selected strategy averaged 18.4 seconds for three generated recommendations in the evaluation.
+- The confidence band is a retrieval-strength label calibrated with aggregate evaluation context, not a user-enjoyment probability.
 
-- **Genre match:** if the song's genre is the one you asked for, it gets **+2.0**.
-- **Mood match:** if the song's mood matches, it gets **+1.0**.
-- **Energy fit:** the closer the song's energy is to your target, the more points it earns, up to **+1.5**.
-
-Then we sort all songs from highest score to lowest and show you the top five.
-
-Genre is worth the most because it is the steadiest sign of taste. Mood is worth less because it changes with your day. Energy is a sliding scale, not pass-or-fail, so it acts like a tie-breaker.
-
-I also ran an experiment where I doubled energy and halved genre. It changed the scores but barely changed the rankings.
-
----
-
-## 5. Observed Behavior / Biases
-
-The clearest weakness I found is an **energy-gap bias that quietly favors mid- and high-energy listeners**. The catalog itself leans loud — the average song energy is about 0.61, and 9 of the 20 songs sit at 0.7 or above while only 5 fall below 0.4 — so a low-energy user simply has fewer close matches to draw from. Because the energy score is based on how close a song is to your target, users with *extreme* tastes (like a target of 0.05 or 0.98) find almost every song "far away," so their scores get squished and their top-5 becomes a "least-bad match" instead of a great fit. Meanwhile a user around 0.5 gets sharp, confident results. On top of that, genre is an exact word-match across 17 nearly-unique genres, so a close tag like "indie pop" earns zero for a "pop" fan — a filter bubble that reinforces the exact label and never surfaces cross-genre discovery. In short, the system serves the "average" mid-to-high-energy, mainstream listener well and treats everyone at the edges as an afterthought.
-
----
-
-## 6. Evaluation Process
-
-**Profiles I tested.** I ran three very different listeners: **High-Energy Pop** (upbeat pop, energy 0.9), **Chill Lofi** (calm lofi, energy 0.25), and **Deep Intense Rock** (hard rock, energy 0.85). I picked these because they pull in different directions, so each should get a clearly different top-5.
-
-**What I looked for.** For each profile I checked if the #1 pick was an obvious "yes," and if the songs below it still felt related to the request.
-
-**What surprised me.** The same high-energy songs kept showing up for different users. And when I doubled the energy weight, the *order* of the top-5 barely changed — only the scores did. The system leans hard on energy.
-
-**Why "Gym Hero" keeps showing up for the "Happy Pop" listener.** Gym Hero is a pop song with very high energy, but its mood is *intense*, not *happy*. The Happy Pop listener wants pop + happy + high energy. Gym Hero nails two of the three: it is pop and it is high energy. We give points for each thing a song gets right, so two-out-of-three is still a strong score. It can't beat "Sunrise City" (which is all three), but it beats everything else. So Gym Hero lands at #2 — being loud and pop is enough, and the missing "happy" only costs it one point.
-
-**Comparing the profiles, two at a time.**
-
-- **High-Energy Pop vs. Chill Lofi.** Near opposites. Pop's list is all loud, bright songs near energy 0.8–0.9. Lofi's list is all quiet, mellow songs near 0.35–0.42. The energy target does most of the work, so calm and hype listeners pull completely different corners of the catalog.
-
-- **High-Energy Pop vs. Deep Intense Rock.** These overlap. Both want high energy, so loud songs like Gym Hero appear in both lists. Genre and mood break the tie: Pop's #1 is "Sunrise City" (happy pop), Rock's #1 is "Storm Runner" (intense rock). The shared energy craving pulls a shared pool of loud songs, then genre/mood decides each winner.
-
-- **Chill Lofi vs. Deep Intense Rock.** The most extreme split. Lofi wants 0.25, Rock wants 0.85, and almost nothing overlaps. Lofi gets soft instrumental tracks; Rock gets the loudest songs in the catalog. This is the clearest proof that the energy dial really steers the results.
-
-No numeric accuracy scores were computed. I evaluated by reading the top-5 for each profile and comparing them by hand.
-
----
-
-## 7. Intended Use and Non-Intended Use
-
-**Intended use:**
-
-- A classroom demo to show how scoring turns data into recommendations.
-- A safe sandbox to test how weights change results.
-- Learning about bias in recommender systems.
-
-**Not intended for:**
-
-- Real users or a real music app.
-- Any decision that matters (it is a toy with 20 songs).
-- Judging an artist, genre, or person's taste as "good" or "bad."
-- Any case where fairness across all listeners is required.
-
----
-
-## 8. Ideas for Improvement
-
-1. **Fuzzy genre matching.** Give partial credit for close genres, so "indie pop" counts for a "pop" fan. This would pop the filter bubble a little.
-2. **Use the extra features.** Tempo, valence, and danceability already sit in the data. Adding them would break ties more fairly than energy alone.
-3. **Add variety to the top-5.** Right now the list can be five near-identical songs. Mixing in one or two surprise picks would help discovery.
-
----
-
-## 9. Personal Reflection
-
-**My biggest learning moment.** It clicked for me that a recommender is really just a scoring rule plus a sort. Nothing magic. But the *small* choices — like whether a genre match is worth 2.0 or 0.5 — quietly decide who the system serves well. My biggest "aha" was the weight experiment: I doubled the energy weight expecting the recommendations to change a lot, and the rankings barely moved. That taught me that tuning a knob is not the same as fixing a problem. The real issue was deeper, in the data.
-
-**How AI tools helped, and when I double-checked them.** Using an AI coding assistant sped me up a lot. It applied the weight changes across the file quickly, explained the score math term-by-term, and helped me spot the energy-gap bias by looking at the data spread. But I did not take its word for anything. When it told me Storm Runner would still rank #1 at a lower genre weight, I actually ran the code to confirm the numbers. When it summarized the genre and energy distribution, I re-ran a quick count myself. The pattern I settled on: let AI draft and explain, but run the real code before I believe any claim about results.
-
-**What surprised me about simple algorithms.** I was surprised that adding three plain numbers together can *feel* like a real recommendation. There is no machine learning here, no crowd of users, just "add points for what matches." Yet the top picks often felt right, like the system "got" the user. That was a little unsettling too, because it means something that feels smart can still be shallow and biased underneath.
-
-**Bias hides in the data, not just the code.** The catalog leaned high-energy, so calm listeners got worse results no matter how I tuned the weights. Real music apps can favor certain tastes just from what songs they happen to have. Now I think a lot more about *who gets left out* when I use a recommendation app.
-
-**What I would try next.** If I kept going, I would add fuzzy genre matching so close tags like "indie pop" count for a "pop" fan, use the extra features (tempo, valence, danceability) that are already sitting unused in the data, and add a little variety to the top-5 so it is not five near-identical songs. I would also balance the catalog so calm listeners get as fair a shot as hype listeners.
+The most surprising result was that an apparently strong RAG design could fail for opposite reasons at once: lexical details such as “midnight” could dominate an irrelevant dance-floor query, while a dense embedding could average away decisive details such as “bagpipes.” I also learned that a reliability harness can contain its own silent bug—the original 100% groundedness headline—which means evaluation code needs tests and human review just as much as application code.

@@ -1,0 +1,209 @@
+Loading songs from data/songs.csv...
+Loaded songs: 72
+
+================================================================
+[Contradiction (energy 0.9 + mood sad)]
+  genre=rock, mood=sad, energy=0.9
+================================================================
+
+1. Storm Runner - Voltline
+   Score: 3.48
+   Reasons:
+     - genre match (rock) (+2.0)
+     - energy closeness (song 0.91 vs target 0.90) (+1.48)
+
+2. Hydroplane - Threadbare Signal
+   Score: 1.50
+   Reasons:
+     - energy closeness (song 0.90 vs target 0.90) (+1.50)
+
+3. Warehouse 4AM - Kestrel Grid
+   Score: 1.48
+   Reasons:
+     - energy closeness (song 0.89 vs target 0.90) (+1.48)
+
+4. Copper Wire - Threadbare Signal
+   Score: 1.47
+   Reasons:
+     - energy closeness (song 0.92 vs target 0.90) (+1.47)
+
+5. Fever Sunday - Los Ribereños
+   Score: 1.47
+   Reasons:
+     - energy closeness (song 0.88 vs target 0.90) (+1.47)
+
+
+================================================================
+[Out-of-range energy (2.0)]
+  genre=pop, mood=happy, energy=2.0
+================================================================
+
+1. Sunrise City - Neon Echo
+   Score: 2.73
+   Reasons:
+     - genre match (pop) (+2.0)
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.82 vs target 2.00) (+-0.27)
+
+2. Gym Hero - Max Pulse
+   Score: 1.90
+   Reasons:
+     - genre match (pop) (+2.0)
+     - energy closeness (song 0.93 vs target 2.00) (+-0.10)
+
+3. Sugar Static - The Fizz Kids
+   Score: 0.81
+   Reasons:
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.87 vs target 2.00) (+-0.19)
+
+4. Lagos Morning - Adaeze Kalu
+   Score: 0.67
+   Reasons:
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.78 vs target 2.00) (+-0.33)
+
+5. Rooftop Lights - Indigo Parade
+   Score: 0.64
+   Reasons:
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.76 vs target 2.00) (+-0.36)
+
+
+================================================================
+[Ghost preferences (genre kpop + mood ecstatic)]
+  genre=kpop, mood=ecstatic, energy=0.5
+================================================================
+
+1. Aftertaste - Simone Ray
+   Score: 1.50
+   Reasons:
+     - energy closeness (song 0.50 vs target 0.50) (+1.50)
+
+2. Island Time - Sol Marley
+   Score: 1.48
+   Reasons:
+     - energy closeness (song 0.51 vs target 0.50) (+1.48)
+
+3. Wheat and Rust - Della Fern
+   Score: 1.48
+   Reasons:
+     - energy closeness (song 0.49 vs target 0.50) (+1.48)
+
+4. Velvet Hours - Simone Ray
+   Score: 1.47
+   Reasons:
+     - energy closeness (song 0.48 vs target 0.50) (+1.47)
+
+5. Static Bloom - Halcyon Drift
+   Score: 1.47
+   Reasons:
+     - energy closeness (song 0.52 vs target 0.50) (+1.47)
+
+
+================================================================
+[Impossible combo (genre metal + energy 0.05)]
+  genre=metal, mood=calm, energy=0.05
+================================================================
+
+1. Kerosene Hymn - Ashen Throne
+   Score: 2.15
+   Reasons:
+     - genre match (metal) (+2.0)
+     - energy closeness (song 0.95 vs target 0.05) (+0.15)
+
+2. Iron Verdict - Ashen Throne
+   Score: 2.10
+   Reasons:
+     - genre match (metal) (+2.0)
+     - energy closeness (song 0.98 vs target 0.05) (+0.11)
+
+3. Signal Decay - North Meridian
+   Score: 1.30
+   Reasons:
+     - energy closeness (song 0.18 vs target 0.05) (+1.30)
+
+4. Tidal Lull - Orbit Bloom
+   Score: 1.26
+   Reasons:
+     - energy closeness (song 0.21 vs target 0.05) (+1.26)
+
+5. Prelude in Grey - Ilse Vandermeer
+   Score: 1.25
+   Reasons:
+     - energy closeness (song 0.22 vs target 0.05) (+1.25)
+
+
+================================================================
+[Negative energy (-1.0)]
+  genre=lofi, mood=chill, energy=-1.0
+================================================================
+
+1. Library Rain - Paper Lanterns
+   Score: 2.47
+   Reasons:
+     - genre match (lofi) (+2.0)
+     - mood match (chill) (+1.0)
+     - energy closeness (song 0.35 vs target -1.00) (+-0.53)
+
+2. Midnight Coding - LoRoom
+   Score: 2.37
+   Reasons:
+     - genre match (lofi) (+2.0)
+     - mood match (chill) (+1.0)
+     - energy closeness (song 0.42 vs target -1.00) (+-0.63)
+
+3. Slow Sunday Loop - LoRoom
+   Score: 1.44
+   Reasons:
+     - genre match (lofi) (+2.0)
+     - energy closeness (song 0.37 vs target -1.00) (+-0.56)
+
+4. Focus Flow - LoRoom
+   Score: 1.40
+   Reasons:
+     - genre match (lofi) (+2.0)
+     - energy closeness (song 0.40 vs target -1.00) (+-0.60)
+
+5. Spacewalk Thoughts - Orbit Bloom
+   Score: 0.58
+   Reasons:
+     - mood match (chill) (+1.0)
+     - energy closeness (song 0.28 vs target -1.00) (+-0.42)
+
+
+================================================================
+[Mood+energy vs genre (genre jazz, mood happy, energy 0.82)]
+  genre=jazz, mood=happy, energy=0.82
+================================================================
+
+1. Coffee Shop Stories - Slow Stereo
+   Score: 2.83
+   Reasons:
+     - genre match (jazz) (+2.0)
+     - energy closeness (song 0.37 vs target 0.82) (+0.83)
+
+2. Sunrise City - Neon Echo
+   Score: 2.50
+   Reasons:
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.82 vs target 0.82) (+1.50)
+
+3. Lagos Morning - Adaeze Kalu
+   Score: 2.44
+   Reasons:
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.78 vs target 0.82) (+1.44)
+
+4. Sugar Static - The Fizz Kids
+   Score: 2.42
+   Reasons:
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.87 vs target 0.82) (+1.42)
+
+5. Rooftop Lights - Indigo Parade
+   Score: 2.41
+   Reasons:
+     - mood match (happy) (+1.0)
+     - energy closeness (song 0.76 vs target 0.82) (+1.41)
+
