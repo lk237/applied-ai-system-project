@@ -1,0 +1,53 @@
+---
+title: "ORIGINAL SYSTEM (Module 3) — Music Recommender Simulation"
+---
+%% Preserved for before/after comparison with architecture.mmd.
+%% This is the deterministic, rule-based recommender this project extends.
+%% No AI models, no retrieval, no evaluation harness — a transparent
+%% content-based scorer: genre (+2.0) + mood (+1.0) + energy closeness (+1.5).
+flowchart TD
+
+    User["User"]
+    Preferences["User Music Preferences<br/><i>genre, mood, target energy</i>"]
+    SongData["Song Dataset<br/>songs.csv"]
+
+    subgraph Input["Input Layer"]
+        Preferences
+        SongData
+    end
+
+    subgraph Processing["Data Processing"]
+        Loader["Load Song Data"]
+        Validation["Validate and Prepare Features"]
+    end
+
+    subgraph Recommendation["Recommendation Engine"]
+        Profile["Build User Preference Profile"]
+        Scoring["Calculate Song Match Scores<br/><i>exact-match categoricals</i>"]
+        Ranking["Rank Songs by Score"]
+    end
+
+    subgraph Output["Output Layer"]
+        Recommendations["Top Recommended Songs<br/>+ score breakdown"]
+    end
+
+    User --> Preferences
+
+    SongData --> Loader
+    Loader --> Validation
+
+    Preferences --> Profile
+    Validation --> Scoring
+    Profile --> Scoring
+
+    Scoring --> Ranking
+    Ranking --> Recommendations
+
+    Recommendations --> User
+
+    LIMITS{{"Known limitations that motivated this project<br/>1 - exact-match rigidity: 'indie pop' scores 0 against 'pop'<br/>2 - no input validation: energy 2.0 produces negative scores<br/>3 - absent genre or mood silently drops to energy-only ranking<br/>4 - accepts only structured fields, not natural language"}}
+
+    Recommendations -.-> LIMITS
+
+    classDef limitnode fill:#fecaca,stroke:#b91c1c,stroke-width:2px,color:#111
+    class LIMITS limitnode

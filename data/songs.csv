@@ -1,21 +1,73 @@
-id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
-1,Sunrise City,Neon Echo,pop,happy,0.82,118,0.84,0.79,0.18
-2,Midnight Coding,LoRoom,lofi,chill,0.42,78,0.56,0.62,0.71
-3,Storm Runner,Voltline,rock,intense,0.91,152,0.48,0.66,0.10
-4,Library Rain,Paper Lanterns,lofi,chill,0.35,72,0.60,0.58,0.86
-5,Gym Hero,Max Pulse,pop,intense,0.93,132,0.77,0.88,0.05
-6,Spacewalk Thoughts,Orbit Bloom,ambient,chill,0.28,60,0.65,0.41,0.92
-7,Coffee Shop Stories,Slow Stereo,jazz,relaxed,0.37,90,0.71,0.54,0.89
-8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
-9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
-10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
-11,Concrete Kingdom,Vince Marrow,hip hop,confident,0.79,95,0.62,0.85,0.14
-12,Moonlit Sonata Drift,Clara Vetch,classical,melancholic,0.24,66,0.31,0.22,0.95
-13,Dust Road Home,The Ember Hollow,country,nostalgic,0.55,102,0.68,0.61,0.72
-14,Island Time,Sol Marley,reggae,relaxed,0.51,74,0.83,0.76,0.44
-15,Voltage Drop,Kilobyte,edm,euphoric,0.96,128,0.74,0.91,0.03
-16,Velvet Hours,Simone Ray,r&b,romantic,0.48,88,0.66,0.70,0.38
-17,Iron Verdict,Ashen Throne,metal,angry,0.98,168,0.22,0.55,0.04
-18,Paper Boats,Wren & Willow,folk,hopeful,0.44,96,0.72,0.53,0.90
-19,Delta Blue Morning,Otis Freeman,blues,mournful,0.39,84,0.35,0.49,0.68
-20,Groove Machine,Funkadelphia,funk,groovy,0.83,112,0.88,0.93,0.16
+id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness,description
+1,Sunrise City,Neon Echo,pop,happy,0.82,118,0.84,0.79,0.18,"Bright synth-pop with a soaring chorus and handclaps, built for sunny morning commutes and getting out the door in a good mood."
+2,Midnight Coding,LoRoom,lofi,chill,0.42,78,0.56,0.62,0.71,"Dusty lo-fi beat with warm vinyl crackle and a muted piano loop, made for late-night studying and long focused work sessions."
+3,Storm Runner,Voltline,rock,intense,0.91,152,0.48,0.66,0.10,"Driving guitar rock with pounding drums and a relentless tempo, the sound of flooring it down an empty highway at night."
+4,Library Rain,Paper Lanterns,lofi,chill,0.35,72,0.60,0.58,0.86,"Barely-there beat under field recordings of rainfall and soft felt piano, ideal background texture for reading or deep concentration."
+5,Gym Hero,Max Pulse,pop,intense,0.93,132,0.77,0.88,0.05,"Maximum-energy dance pop with a hard four-on-the-floor kick and shouted hooks, engineered for heavy lifting and sprint intervals."
+6,Spacewalk Thoughts,Orbit Bloom,ambient,chill,0.28,60,0.65,0.41,0.92,"Weightless ambient pads drifting without percussion, evoking deep space and slow breathing. Good for meditation or falling asleep."
+7,Coffee Shop Stories,Slow Stereo,jazz,relaxed,0.37,90,0.71,0.54,0.89,"Brushed drums, upright bass and lazy trumpet in a small room, the unhurried feel of a quiet cafe on a weekday afternoon."
+8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22,"Neon-lit analog synth arpeggios over a steady drum machine, pure late-night driving music with rain on the windshield."
+9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78,"Minimal repetitive lo-fi loop with no vocals and no surprises, deliberately unobtrusive so it disappears while you work."
+10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35,"Jangly guitars and group vocals with a big euphoric lift, summer-evening party music for rooftops and string lights."
+11,Concrete Kingdom,Vince Marrow,hip hop,confident,0.79,95,0.62,0.85,0.14,"Hard-hitting boom bap drums and a brass sample under assured, unhurried verses about ambition and the city that made him."
+12,Moonlit Sonata Drift,Clara Vetch,classical,melancholic,0.24,66,0.31,0.22,0.95,"Solo piano, sparse and reverberant, played rubato with long pauses. Quiet grief in a room by itself."
+13,Dust Road Home,The Ember Hollow,country,nostalgic,0.55,102,0.68,0.61,0.72,"Pedal steel and acoustic strumming with a warm baritone recalling a childhood town, windows-down back-road driving."
+14,Island Time,Sol Marley,reggae,relaxed,0.51,74,0.83,0.76,0.44,"Offbeat guitar skank and a fat bassline with a sunny horn section, hammock music for a slow afternoon by the water."
+15,Voltage Drop,Kilobyte,edm,euphoric,0.96,128,0.74,0.91,0.03,"Festival-scale build and a huge supersaw drop, hands-in-the-air peak-time energy designed for a crowd at midnight."
+16,Velvet Hours,Simone Ray,r&b,romantic,0.48,88,0.66,0.70,0.38,"Smooth electric piano and layered close-mic vocal harmonies, intimate slow-burn soul for a candlelit evening."
+17,Iron Verdict,Ashen Throne,metal,angry,0.98,168,0.22,0.55,0.04,"Down-tuned tremolo riffs, blast beats and roared vocals, unrelenting aggression from the first bar to the last."
+18,Paper Boats,Wren & Willow,folk,hopeful,0.44,96,0.72,0.53,0.90,"Fingerpicked acoustic guitar and two close voices in harmony, gentle and quietly optimistic like sunlight after a long rain."
+19,Delta Blue Morning,Otis Freeman,blues,mournful,0.39,84,0.35,0.49,0.68,"Slide guitar and a weary vocal over a slow shuffle, twelve-bar heartbreak recorded like it is coming through a screen door."
+20,Groove Machine,Funkadelphia,funk,groovy,0.83,112,0.88,0.93,0.16,"Slap bass, tight horn stabs and a wah-guitar clav riff that refuses to sit still. Irresistible dancefloor funk."
+21,Static Bloom,Halcyon Drift,dream pop,dreamy,0.52,104,0.58,0.55,0.42,"Washed-out reverb guitars and breathy vocals buried in the mix, hazy and weightless like a half-remembered afternoon."
+22,Bedroom Ceiling,Marlo Vance,bedroom pop,bittersweet,0.46,98,0.51,0.64,0.55,"Home-recorded guitar and a drum machine with slightly out-of-tune vocals, small and sincere and a little sad."
+23,Neon Aquarium,Vaporcade,vaporwave,dreamy,0.33,70,0.54,0.48,0.30,"Slowed and pitched-down samples drenched in reverb, the sound of an empty shopping mall at closing time."
+24,Cassette Sunday,Chillhop Union,chillhop,relaxed,0.44,84,0.67,0.68,0.62,"Jazzy chord loop over a swung boom bap beat with tape hiss, easy Sunday-morning listening while making breakfast."
+25,Glass Cathedral,Aurora Verrine,neoclassical,serene,0.26,58,0.45,0.20,0.94,"Layered strings and prepared piano building slowly to one restrained climax, cinematic and quietly devastating."
+26,Nine Below,Frostline,post-rock,triumphant,0.68,86,0.44,0.35,0.28,"Instrumental crescendo rock, eight minutes of patient build from a single clean guitar to a wall of distortion."
+27,Split Lip Summer,The Curbstones,punk,defiant,0.94,178,0.51,0.60,0.06,"Two minutes of buzzsaw guitar and shouted gang vocals, fast and snotty and over before you catch your breath."
+28,Basement Tape,Grey Harbor,garage rock,restless,0.85,146,0.47,0.62,0.15,"Fuzzed-out riffs recorded live in one take with the levels in the red, scrappy and urgent and gloriously imprecise."
+29,Slow Collapse,Hollow Ridge,doom metal,mournful,0.71,58,0.18,0.30,0.12,"Enormous down-tuned chords at a funeral crawl, each riff hanging in the air for a full measure before the next."
+30,Uptown Ledger,Mica Rowe,trap,confident,0.74,140,0.55,0.87,0.08,"Rattling hi-hats and a sub-bass 808 under half-sung ad-libs, cold and spacious and built for a car system."
+31,Chalk Lines,DJ Pemberton,boom bap,nostalgic,0.66,92,0.58,0.80,0.22,"Dusty crate-dug drum break and a chopped soul vocal, ninety-three-style hip hop with scratched hooks between verses."
+32,Warehouse 4AM,Kestrel Grid,techno,intense,0.89,134,0.31,0.84,0.02,"Relentless industrial kick and a single evolving filter sweep, hypnotic and merciless for a dark room and a fog machine."
+33,Sunday Service House,Bloom Committee,house,euphoric,0.81,124,0.86,0.94,0.10,"Warm piano chords and a gospel vocal sample over a shuffling four-four groove, joyful and communal and made for sunrise."
+34,Copper Wire,Threadbare Signal,drum and bass,restless,0.92,174,0.42,0.78,0.05,"Chopped amen break at breakneck pace under a rolling reese bassline, jittery and propulsive and impossible to sit through."
+35,Long Way Down,Ceremony of Doves,trance,euphoric,0.87,138,0.69,0.82,0.07,"Sixteen-bar build into a huge melodic breakdown with a supersaw lead, arms-up emotional release on a festival scale."
+36,Sable Coast,Lune Ordinaire,downtempo,moody,0.41,92,0.40,0.57,0.36,"Trip-hop drums under smoky vocals and a detuned Rhodes, noir atmosphere for a rainy city at two in the morning."
+37,Signal Decay,North Meridian,drone,serene,0.18,50,0.38,0.10,0.88,"One slowly shifting sustained tone across twelve minutes, almost motionless. Deep-focus texture rather than a song."
+38,Pocket Full of Nickels,The Sallow Brothers,bluegrass,playful,0.72,140,0.79,0.65,0.85,"Breakneck banjo rolls, fiddle and upright bass trading solos on a porch, all acoustic and grinning."
+39,Wheat and Rust,Della Fern,americana,wistful,0.49,98,0.55,0.52,0.80,"Dobro and close-harmony vocals over a slow shuffle, dust-and-highway storytelling about leaving a place for good."
+40,Kettle on the Stove,June Alder,indie folk,tender,0.38,88,0.63,0.47,0.91,"A single nylon-string guitar and an unpolished voice recorded close, small domestic songwriting about ordinary kindness."
+41,Dub Pressure,King Sable,dub,relaxed,0.47,72,0.61,0.74,0.30,"Bass-forward reggae stripped to drums and echo, every snare disappearing into a long spring-reverb tail."
+42,Lagos Morning,Adaeze Kalu,afrobeat,happy,0.78,108,0.87,0.90,0.25,"Interlocking guitar, talking drum and a horn section over a rolling groove, radiant and celebratory and built to move."
+43,Ceiling Fan Slow,Odette Prince,neo soul,romantic,0.44,80,0.64,0.68,0.40,"Loose live drums behind a jazz-inflected vocal and warm Wurlitzer, unhurried and sensual and slightly off the grid."
+44,Testify,The Redemption Choir,gospel,triumphant,0.80,104,0.90,0.72,0.35,"Full choir, Hammond organ and a hand-clapping congregation building to an ecstatic key change. Pure uplift."
+45,Sequin Boulevard,Studio 55,disco,groovy,0.86,120,0.89,0.95,0.12,"Four-on-the-floor kick, string stabs and an octave bassline under a soaring falsetto, unashamed mirror-ball joy."
+46,Salt and Sorrow,Maren Oduya,soul,mournful,0.52,76,0.33,0.55,0.42,"Big-voiced ballad over a slow six-eight with tremolo guitar and a horn swell, heartbreak sung at full volume."
+47,Fever Sunday,Los Ribereños,salsa,playful,0.88,190,0.85,0.92,0.28,"Blazing montuno piano, congas and a full brass section trading breaks, dancefloor music that demands a partner."
+48,Dos Copas,Rafa Solimar,bachata,romantic,0.58,128,0.70,0.86,0.50,"Syncopated requinto guitar and bongo over a swaying four-count, sweetly heartbroken and made for close dancing."
+49,Green Isle Reel,Sorcha Byrne,celtic,playful,0.69,136,0.76,0.58,0.87,"Tin whistle and fiddle chasing each other over a bodhran pulse, a proper pub session tune that speeds up as it goes."
+50,Amber Interchange,Cassette Futures,synthwave,nostalgic,0.71,112,0.53,0.70,0.18,"Chorused synth lead over gated drums and a throbbing bass pulse, eighties soundtrack music for a city seen from an overpass."
+51,Paper Tigers,Lantern Youth,alt rock,restless,0.83,142,0.45,0.63,0.20,"Loud-quiet-loud dynamics with a distorted chorus and an anxious vocal, nineties alternative energy and a lot of pedal noise."
+52,Hollow Bridges,Vermilion Sound,indie rock,bittersweet,0.74,128,0.49,0.64,0.24,"Interlocking clean guitars and a driving eighth-note bass under a plaintive vocal, melancholy but insistently forward-moving."
+53,Sugar Static,The Fizz Kids,power pop,happy,0.87,156,0.82,0.75,0.14,"Two-and-a-half minutes of crunchy power chords, handclaps and an enormous hook that lodges immediately."
+54,Blue Hour Bossa,Tomás Ferreira,bossa nova,serene,0.36,96,0.68,0.66,0.82,"Nylon guitar playing gentle syncopation under a soft murmured vocal, the sound of a warm balcony at dusk."
+55,Late Set,The Corner Trio,nu jazz,moody,0.54,100,0.47,0.61,0.55,"Electric bass and drums locked in a loose groove while a saxophone wanders overhead, smoky and improvisational."
+56,Organ Grinder Blues,Sonny Ridgeway,soul jazz,groovy,0.67,108,0.72,0.78,0.44,"Hammond B3 bubbling over ride-cymbal swing and a clean guitar comp, greasy and unhurried and deeply in the pocket."
+57,Prelude in Grey,Ilse Vandermeer,piano,melancholic,0.22,62,0.28,0.18,0.96,"Unaccompanied piano miniature, quiet and harmonically restless, recorded close enough to hear the pedal mechanism."
+58,Fret and Fever,Otis Freeman,blues,restless,0.62,116,0.44,0.58,0.42,"Uptempo electric shuffle with a stinging lead tone and a shouted vocal, juke-joint blues with the amp turned up."
+59,Two Weeks Notice,Cassidy Lark,country,triumphant,0.75,124,0.80,0.70,0.55,"Big-chorus country rock with fiddle and a defiant hook about walking out and not looking back."
+60,Kerosene Hymn,Ashen Throne,metal,intense,0.95,152,0.26,0.52,0.06,"Mid-tempo crushing riffs with a half-time breakdown and layered screams, heavier for being slower than it wants to be."
+61,Marble Steps,Aurora Verrine,neoclassical,hopeful,0.34,72,0.58,0.24,0.92,"Ascending piano figure joined gradually by cello and violin, patient and warm and quietly resolving."
+62,Hydroplane,Threadbare Signal,drum and bass,anxious,0.90,172,0.30,0.74,0.06,"Skittering breaks under a menacing sub bassline and clipped vocal stabs, claustrophobic and fast and slightly paranoid."
+63,Slow Sunday Loop,LoRoom,lofi,relaxed,0.37,76,0.62,0.59,0.75,"Sleepy lo-fi loop with a hint of saxophone and rain, deliberately repetitive background music for a lazy morning."
+64,Tidal Lull,Orbit Bloom,ambient,serene,0.21,54,0.60,0.30,0.94,"Gentle synth swells timed to the pull of water, no drums and no melody. Sleep and stillness music."
+65,Blacktop Prayer,Vince Marrow,hip hop,anxious,0.72,88,0.38,0.76,0.18,"Sparse minor-key piano loop and hard drums under tense, breathless verses about pressure and running out of road."
+66,Pilot Light,Indigo Parade,indie pop,hopeful,0.69,116,0.75,0.78,0.40,"Bright arpeggiated guitar and a stacked-vocal chorus, gentle optimism with a big enough hook for a car singalong."
+67,Cold Open,Kestrel Grid,techno,anxious,0.84,130,0.25,0.80,0.03,"Stripped-back peak-time tool built on one insistent kick and a rising metallic drone, tense and functional."
+68,Harvest Gold,Della Fern,americana,nostalgic,0.53,94,0.60,0.50,0.78,"Warm acoustic strum and lap steel behind a plainspoken vocal about a farm that is no longer in the family."
+69,Sparrow in the Vent,Wren & Willow,folk,wistful,0.40,90,0.52,0.48,0.93,"Two voices and one guitar in a bare room, a small sad song about a city apartment and missing somewhere green."
+70,Aftertaste,Simone Ray,r&b,bittersweet,0.50,84,0.44,0.66,0.42,"Muted keys and a restrained vocal over crisp programmed drums, the composed sound of pretending to be fine."
+71,Panorama Wide,Frostline,post-rock,serene,0.45,74,0.52,0.28,0.40,"Reverbed guitar loops and a slow tremolo swell that never quite breaks, patient and expansive and mostly weather."
+72,Last Call Disco,Studio 55,disco,bittersweet,0.79,116,0.60,0.90,0.15,"Strings and a walking bassline under a wistful vocal, the last song of the night when the lights come up too soon."

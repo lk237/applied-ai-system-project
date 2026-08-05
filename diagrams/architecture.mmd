@@ -1,39 +1,183 @@
+---
+title: "Crate Digger — Grounded Music Recommender with Reliability Harness"
+---
+%% Extends the Module 3 rule-based recommender (see architecture-original.mmd).
+%% Advanced AI features: (1) Retrieval-Augmented Generation,
+%% (2) Specialized local models, (3) Reliability/testing system.
+%% Runs fully offline — no API key required.
 flowchart TD
 
-    User["User"]
-    Preferences["User Music Preferences"]
-    SongData["Song Dataset<br/>songs.csv"]
-
-    subgraph Input["Input Layer"]
-        Preferences
-        SongData
+    %% ============================================================
+    %% 1. INPUT
+    %% ============================================================
+    subgraph INPUT["1 - INPUT"]
+        direction TB
+        USER["User<br/><i>natural-language request</i><br/>'something upbeat for a road trip'"]
+        UI["Interface<br/>CLI: python -m src.main<br/>UI: streamlit run app.py"]
+        USER --> UI
     end
 
-    subgraph Processing["Data Processing"]
-        Loader["Load Song Data"]
-        Validation["Validate and Prepare Features"]
+    %% ============================================================
+    %% 2. INPUT GUARDRAILS
+    %% ============================================================
+    subgraph PRE["2 - INPUT GUARDRAILS"]
+        direction TB
+        VALIDATE{"Validate request<br/>non-empty, length cap,<br/>energy clamped to 0.0-1.0,<br/>k within bounds"}
+        REJECT["Reject with reason<br/><i>no model is invoked</i>"]
+        VALIDATE -->|invalid| REJECT
     end
 
-    subgraph Recommendation["Recommendation Engine"]
-        Profile["Build User Preference Profile"]
-        Scoring["Calculate Song Match Scores"]
-        Ranking["Rank Songs by Score"]
+    %% ============================================================
+    %% 3. RETRIEVER  — the R in RAG
+    %% ============================================================
+    subgraph RETRIEVE["3 - RETRIEVER"]
+        direction TB
+        CATALOG[("data/songs.csv<br/><i>catalog + text blurbs</i>")]
+        EMBED["Embedding model<br/><b>all-MiniLM-L6-v2</b><br/><i>sentence-transformers</i>"]
+        INDEX[("Cached vector index<br/>data/index.npz")]
+        SEARCH["Cosine similarity<br/>select top-k candidates"]
+
+        CATALOG -->|"embed once, cache to disk"| EMBED
+        EMBED --> INDEX
+        INDEX --> SEARCH
     end
 
-    subgraph Output["Output Layer"]
-        Recommendations["Top Recommended Songs"]
+    EMPTY{"Any candidate above<br/>similarity threshold?"}
+    REFUSE["Refuse honestly<br/><i>'Nothing in this catalog matches'</i><br/><b>no song is ever invented</b>"]
+
+    %% ============================================================
+    %% 4. GROUNDED GENERATOR — the G in RAG
+    %% ============================================================
+    subgraph GENERATE["4 - GROUNDED GENERATOR"]
+        direction TB
+        PROMPT["Assemble prompt<br/><i>retrieved rows are the ONLY facts supplied</i>"]
+        LLM["Generative model<br/><b>flan-t5-base</b><br/><i>greedy decoding = reproducible</i>"]
+        PARSE["Parse into structured<br/>recommendation objects"]
+        PROMPT --> LLM --> PARSE
     end
 
-    User --> Preferences
+    %% ============================================================
+    %% 5. OUTPUT GUARDRAILS — machine checks the AI
+    %% ============================================================
+    subgraph POST["5 - OUTPUT GUARDRAILS - automated check of AI output"]
+        direction TB
+        CITE{"Citation check<br/>is every named song present<br/>in the retrieved set?"}
+        HALLUC["Drop unsupported claim<br/>log groundedness failure"]
+        CITE -->|"not found in sources"| HALLUC
+    end
 
-    SongData --> Loader
-    Loader --> Validation
+    %% ============================================================
+    %% BASELINE ARM — carried forward from Module 3
+    %% ============================================================
+    BASELINE["Deterministic scorer<br/><i>src/recommender.py</i><br/>genre + mood + energy rule<br/><b>baseline for comparison</b>"]
 
-    Preferences --> Profile
-    Validation --> Scoring
-    Profile --> Scoring
+    %% ============================================================
+    %% 6. OUTPUT
+    %% ============================================================
+    subgraph OUTPUT["6 - OUTPUT"]
+        direction TB
+        ANSWER["Recommendations<br/>+ cited catalog rows<br/>+ stated reasons"]
+        BAND["Confidence band<br/><i>derived from stored eval scores</i>"]
+        ANSWER --> BAND
+    end
 
-    Scoring --> Ranking
-    Ranking --> Recommendations
+    %% ============================================================
+    %% OBSERVABILITY
+    %% ============================================================
+    LOGS[("Structured logs<br/>logs/run-*.jsonl<br/><i>query, retrieved ids, latency,<br/>guardrail verdicts, errors</i>")]
 
-    Recommendations --> User
+    %% ============================================================
+    %% 7. EVALUATOR — reliability harness
+    %% ============================================================
+    subgraph EVAL["7 - EVALUATOR - reliability harness"]
+        direction TB
+        GOLDEN[("Golden set<br/><i>~25 human-authored cases</i><br/>query + expected properties")]
+        RUNNER["Eval runner<br/>python -m src.evals.run_eval"]
+
+        M1["<b>Groundedness</b><br/>is every song real?<br/><i>deterministic check</i>"]
+        M2["<b>Consistency</b><br/>paraphrase robustness<br/><i>Jaccard overlap of ids</i>"]
+        M3["<b>Relevance</b><br/>golden property assertions<br/><i>energy, genre, mood bounds</i>"]
+        M4["<b>Cost / latency</b><br/>wall time, token counts"]
+
+        SCORE[("evals/results.json<br/>evals/scorecard.md")]
+
+        GOLDEN --> RUNNER
+        RUNNER --> M1 & M2 & M3 & M4
+        M1 & M2 & M3 & M4 --> SCORE
+    end
+
+    %% ============================================================
+    %% 8. TEST SUITE
+    %% ============================================================
+    subgraph TESTS["8 - TEST SUITE - offline, no model downloads"]
+        direction TB
+        PYTEST["pytest<br/><i>tests/</i>"]
+        UNIT["Unit: scorer maths,<br/>CSV loading, clamping"]
+        GUARD["Guardrails: bad input,<br/>empty retrieval, fabricated title"]
+        RETR["Retrieval: known query<br/>returns expected song"]
+        PYTEST --> UNIT & GUARD & RETR
+    end
+
+    %% ============================================================
+    %% HUMAN IN THE LOOP
+    %% ============================================================
+    HUMAN{{"HUMAN CHECKPOINTS<br/>1 - authors the golden-set expectations<br/>2 - reads scorecard, inspects each failure<br/>3 - tunes threshold and prompt, re-runs eval<br/>4 - audits logs for silent errors<br/>5 - signs off before release"}}
+
+    %% ============================================================
+    %% WIRING
+    %% ============================================================
+    UI --> VALIDATE
+    VALIDATE -->|valid| SEARCH
+    SEARCH --> EMPTY
+    EMPTY -->|no| REFUSE
+    EMPTY -->|yes| PROMPT
+    PARSE --> CITE
+    CITE -->|"all citations verified"| ANSWER
+    HALLUC --> ANSWER
+
+    VALIDATE -.->|"same request, rule-based path"| BASELINE
+    BASELINE -.->|"side-by-side comparison"| ANSWER
+
+    BAND --> USER
+
+    %% observability taps
+    VALIDATE -.-> LOGS
+    SEARCH -.-> LOGS
+    LLM -.-> LOGS
+    CITE -.-> LOGS
+    REFUSE -.-> LOGS
+    REJECT -.-> LOGS
+
+    %% the feedback loop that makes evaluation load-bearing, not decorative
+    RUNNER ==>|"exercises the real pipeline"| VALIDATE
+    SCORE ==>|"READ AT RUNTIME<br/>selects prompt strategy"| PROMPT
+    SCORE ==>|"READ AT RUNTIME<br/>sets confidence band"| BAND
+
+    %% human involvement in checking AI results
+    SCORE --> HUMAN
+    LOGS --> HUMAN
+    HUMAN -.->|"curates cases"| GOLDEN
+    HUMAN -.->|"adjusts config"| PROMPT
+
+    %% tests guard the components
+    PYTEST -.->|verifies| BASELINE
+    PYTEST -.->|verifies| VALIDATE
+    PYTEST -.->|verifies| CITE
+    PYTEST -.->|verifies| SEARCH
+
+    %% ============================================================
+    %% STYLES
+    %% ============================================================
+    classDef human fill:#fde68a,stroke:#b45309,stroke-width:3px,color:#111
+    classDef model fill:#c7d2fe,stroke:#4338ca,stroke-width:2px,color:#111
+    classDef guard fill:#fecaca,stroke:#b91c1c,stroke-width:2px,color:#111
+    classDef store fill:#e5e7eb,stroke:#4b5563,stroke-width:1px,color:#111
+    classDef evalnode fill:#bbf7d0,stroke:#15803d,stroke-width:2px,color:#111
+    classDef testnode fill:#ddd6fe,stroke:#6d28d9,stroke-width:2px,color:#111
+
+    class USER,HUMAN human
+    class EMBED,LLM,SEARCH model
+    class VALIDATE,CITE,EMPTY,REFUSE,REJECT,HALLUC guard
+    class CATALOG,INDEX,LOGS,SCORE,GOLDEN store
+    class RUNNER,M1,M2,M3,M4 evalnode
+    class PYTEST,UNIT,GUARD,RETR testnode

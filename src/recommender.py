@@ -18,6 +18,10 @@ class Song:
     valence: float
     danceability: float
     acousticness: float
+    # Prose blurb used by the retriever (see catalog.searchable_text). Defaults
+    # to empty so existing callers and tests that build a Song without one keep
+    # working, and so the rule-based scorer below is unaffected by its presence.
+    description: str = ""
 
 @dataclass
 class UserProfile:
@@ -39,12 +43,54 @@ class Recommender:
         self.songs = songs
 
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
-        # TODO: Implement recommendation logic
-        return self.songs[:k]
+        """
+        Rank songs for this profile, highest score first.
+
+        Delegates to the module-level score_song so the OOP and functional APIs
+        can never disagree about what a score means. The acoustic preference is
+        applied as a tie-breaker only: it nudges ordering without overruling the
+        genre/mood/energy recipe documented in the README.
+        """
+        scored = []
+        for song in self.songs:
+            score, _ = score_song(self._prefs(user), self._as_dict(song))
+            if user.likes_acoustic:
+                score += 0.25 * song.acousticness
+            scored.append((score, song))
+
+        # Sort by score descending, then by id ascending so equal scores produce
+        # a stable, reproducible order instead of depending on input ordering.
+        scored.sort(key=lambda pair: (-pair[0], pair[1].id))
+        return [song for _, song in scored[:k]]
 
     def explain_recommendation(self, user: UserProfile, song: Song) -> str:
-        # TODO: Implement explanation logic
-        return "Explanation placeholder"
+        """Human-readable reason string for why this song scored as it did."""
+        score, reasons = score_song(self._prefs(user), self._as_dict(song))
+        if user.likes_acoustic:
+            bonus = 0.25 * song.acousticness
+            score += bonus
+            reasons.append(f"acoustic preference (+{bonus:.2f})")
+
+        detail = "; ".join(reasons) if reasons else "no strong matches"
+        return f"{song.title} scored {score:.2f} - {detail}"
+
+    @staticmethod
+    def _prefs(user: UserProfile) -> Dict:
+        """Adapt a UserProfile to the dict shape score_song expects."""
+        return {
+            "genre": user.favorite_genre,
+            "mood": user.favorite_mood,
+            "energy": user.target_energy,
+        }
+
+    @staticmethod
+    def _as_dict(song: Song) -> Dict:
+        """Adapt a Song to the dict shape score_song expects."""
+        return {
+            "genre": song.genre,
+            "mood": song.mood,
+            "energy": song.energy,
+        }
 
 def load_songs(csv_path: str) -> List[Dict]:
     """Read the CSV at csv_path and return a list of song dicts with numeric fields cast to int/float."""
